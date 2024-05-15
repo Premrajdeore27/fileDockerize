@@ -17,7 +17,7 @@ jobs:
 
       - name: taked up cmd
         run: |
-          docker compose up -d
+          docker-compose up -d --build
 
       - name: Build
         run: |
