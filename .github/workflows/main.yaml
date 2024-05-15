@@ -1,0 +1,27 @@
+name: learn-github-actions
+
+on:
+  push:
+    branches:
+      - "master"
+jobs:
+  build:
+    runs-on: ''
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: taked down previous cmd
+        run: |
+          docker compose down
+
+      - name: taked up cmd
+        run: |
+          docker compose up -d
+
+      - name: Build
+        run: |
+          npm run build    
+
+
+
