@@ -10,6 +10,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      
+      - name: Set up Docker
+        run: |
+          sudo service docker start
 
       - name: taked down previous cmd
         run: |
@@ -17,7 +21,7 @@ jobs:
 
       - name: taked up cmd
         run: |
-          docker-compose up -d 
+          docker compose up -d 
       - name: Build
         run: |
           npm run build    
