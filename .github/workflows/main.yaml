@@ -8,23 +8,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: ["20.12.2"]
+
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Set up Docker
-        run: |
-          sudo service docker start
-
-      - name: taked down previous cmd
-        run: |
-          docker compose down
-
-      - name: taked up cmd
-        run: |
-          docker compose up -d 
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+      - name: Install Dependencies
+        run: npm install
       - name: Build
-        run: |
-          npm run build    
-
+        run: npm run build   
 
 
