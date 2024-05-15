@@ -17,8 +17,7 @@ jobs:
 
       - name: taked up cmd
         run: |
-          docker-compose up -d --build
-
+          docker-compose up -d 
       - name: Build
         run: |
           npm run build    
